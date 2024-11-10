@@ -99,7 +99,7 @@
                 
                 const expiryDate = new Date('April 1, 2027 00:00:00');
                 setCookie("username", username, expiryDate);
-                document.getElementById("welcomeMessage").innerText = "Welcome, " + username + "!";
+                document.getElementById("welcomeMessage").innerText = "You've been logged in! Welcome, " + username + "!";
                 document.getElementById("usernameForm").style.display = "none";
                 document.getElementById("deleteButton").style.display = "inline-block";
             }
@@ -120,7 +120,7 @@
         <img src="logo.png" alt="Freaky Logo">
         <h1>FreakyAccounts</h1>
     </header>
-    <h2>One password. All of Freakybob.</h2>
+    <h2>One username. All of Freakybob.</h2>
     <p>See the username you put in? If you do, it means that I'm a genius.</p>
     <p id="welcomeMessage"></p>
     <form id="usernameForm" onsubmit="saveUsername(event)">
