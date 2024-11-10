@@ -5,40 +5,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freaky Account</title>
     <style>
-        h1 {
-            display: inline;
-            margin: 0px auto;
-            display: block;
-        }
         * {
             font-family: "Noto Sans", serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         body {
-            background-color: black;
-        }
-        h1, label, h2, footer {
+             background-image: linear-gradient(rgb(203, 22, 167), rgb(27, 204, 216));
+             background-repeat: no-repeat;
+             background-size: cover;
+             height: 100vh;
+            flex-direction: column;
+            align-items: center;
             color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        header img {
+            height: 50px;
+            width: auto;
+        }
+        h1 {
+            font-size: 2em;
+        }
+        form {
+            margin-top: 10px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            margin-top: 5px;
+        }
+        input[type="submit"], button {
+            padding: 8px 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: #555;
+            color: white;
+            border: none;
+            font-weight: bold;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        #hahahahahayouthought {
+            text-decoration: line-through;
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Doto:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script>
+        
+        function setCookie(name, value, expiryDate) {
+            const expires = "expires=" + expiryDate.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookieArray = decodedCookie.split(';');
+            for (let cookie of cookieArray) {
+                cookie = cookie.trim();
+                if (cookie.indexOf(name + "=") == 0) {
+                    return cookie.substring((name + "=").length);
+                }
+            }
+            return "";
+        }
+
+        function checkUsername() {
+            const username = getCookie("username");
+            if (username) {
+                document.getElementById("welcomeMessage").innerText = "Welcome back, " + username + "!";
+                document.getElementById("usernameForm").style.display = "none";
+                document.getElementById("deleteButton").style.display = "inline-block";
+            }
+        }
+
+        function saveUsername(event) {
+            event.preventDefault();
+            const username = document.getElementById("name").value;
+            if (username) {
+                
+                const expiryDate = new Date('April 1, 2027 00:00:00');
+                setCookie("username", username, expiryDate);
+                document.getElementById("welcomeMessage").innerText = "Welcome, " + username + "!";
+                document.getElementById("usernameForm").style.display = "none";
+                document.getElementById("deleteButton").style.display = "inline-block";
+            }
+        }
+
+        function deleteUsername() {
+            document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/"; // ok ok, you might be asking why it says '1970' but's actually for a smart reason. It'll delete immediately when it is 4/1/2027 :333
+            document.getElementById("welcomeMessage").innerText = "";
+            document.getElementById("usernameForm").style.display = "block";
+            document.getElementById("deleteButton").style.display = "none";
+        }
+
+        window.onload = checkUsername;
+    </script>
 </head>
 <body>
-    <header><img src="logo.png"><h1>FreakyAccounts</h1></header>
+    <header>
+        <img src="logo.png" alt="Freaky Logo">
+        <h1>FreakyAccounts</h1>
+    </header>
     <h2>One password. All of Freakybob.</h2>
-    <form action="/action_page.php">
-        <label for="name">Username:</label>
-        <input type="text" id="name" name="name" placeholder="Wish">
+    <p>See the username you put in? If you do, it means that I'm a genius.</p>
+    <p id="welcomeMessage"></p>
+    <form id="usernameForm" onsubmit="saveUsername(event)">
+        <label for="name">Username:</label><br>
+        <input type="text" id="name" name="name" placeholder="Enter your username"><br>
         <input type="submit" value="Submit">
-      </form>
-      <br>
-      <footer>
-        Licensed under GPL-3.0. 
-        <br>
-        No data is sent to a server.
-        <br>
-        This is a concept. If created, we will use cookies to store usernames.
-      </footer>
+    </form>
+    <button id="deleteButton" onclick="deleteUsername()" style="display: none;">Delete Username</button>
+    <footer>
+        Licensed under GPL-3.0.<br>
+        No data is sent to a server.<br>
+        <p id="hahahahahayouthought"> This is a concept. If created, we will use cookies to store usernames.</p>
+        I DID IT, I DON'T KNOW WHAT WE ARE GONNA USE THIS FOR, BUT I DID IT -5quirre1
+    </footer>
 </body>
 </html>
